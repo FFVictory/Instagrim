@@ -27,14 +27,15 @@
                     <%
                         
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                        String UserName;
                         if (lg != null) {
-                            String UserName = lg.getUsername();
+                            UserName = lg.getUsername();
                             if (lg.getlogedin()) {
                     %>
 
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
                     <%}
-                            }else{
+                            }else{ UserName = "Anonymous";
                                 %>
                  <li><a href="register.jsp">Register</a></li>
                 <li><a href="login.jsp">Login</a></li>
@@ -47,7 +48,18 @@
         <footer>
             <ul>
                 <li class="footer"><a href="/Instagrim">Home</a></li>
-                <li>&COPY; Andy C</li>
+                <li>&COPY; Andy V</li>
+                <li>Welcome faggot named
+                        <%=UserName%>
+                </li>
+                <li>
+                    <a href="/" >Logout
+                    <%
+                        //HttpSession session=request.getSession();
+                        session.removeAttribute("LoggedIn");
+                    %>
+                    </a>
+                </li>
             </ul>
         </footer>
     </body>
