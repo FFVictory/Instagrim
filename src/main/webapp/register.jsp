@@ -13,13 +13,50 @@
         <link rel="stylesheet" type="text/css" href="Styles.css" />
     </head>
     <body>
+    <script  src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#password2").keyup(validate);
+        });
+
+
+        function validate() {
+            var password1 = $("#password1").val();
+            var password2 = $("#password2").val();
+
+
+            var td1 = document.getElementById('validate-status');
+            var td2 = document.getElementById('validate-status');
+            if(password1 == password2) {
+                td1.innerHTML="Passwords match!";
+                td1.style.color = 'green';
+                $("#submission").show();
+                //$("validate-status").css("color","green");
+                //$("#validate-status").html("valid");
+            }
+            else {
+                td1.innerHTML="Passwords Don't Match";
+                td1.style.color = 'red';
+                $("#submission").hide();
+                //$("#validate-status").html("invalid");
+            }
+
+        }
+        $(document).ready(function() {
+            $(window).keydown(function(event){
+                if(event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
         <header>
         <h1>InstaGrim ! </h1>
         <h2>Your world in Black and White</h2>
         </header>
         <nav>
             <ul>
-                
                 <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
             </ul>
         </nav>
@@ -29,7 +66,8 @@
             <form method="POST"  action="Register">
                 <ul>
                     <li>User Name <input type="text" name="username"></li>
-                    <li>Password <input type="password" name="password"></li>
+                    <li>Password <input type="password" name="password" id="password1"></li>
+                    <li>Confirm Password <input type="password" name="confirmPassword" id="password2">   <div id="validate-status"></div></li>
                     <li>email <input type="email" name="email"></li>
                     <li>Postcode<input type="text" name="postcode"></li>
                     <li>Address <input type="text" name="address"></li>
@@ -285,7 +323,8 @@
                     </select></li>
                 </ul>
                 <br/>
-                <input type="submit" value="Regidter"> 
+                <input type="submit" value="Register" id="submission">
+
             </form>
 
         </article>
