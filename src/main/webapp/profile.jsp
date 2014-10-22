@@ -8,7 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+    <title>Instagrind</title>
+    <link rel="stylesheet" type="text/css" href="Styles.css" />
 </head>
 <body>
 

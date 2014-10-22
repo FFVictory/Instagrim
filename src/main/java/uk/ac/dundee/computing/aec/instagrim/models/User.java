@@ -14,6 +14,11 @@ import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 
@@ -27,7 +32,7 @@ public class User {
         
     }
     
-    public boolean RegisterUser(String username, String Password){
+    public boolean RegisterUser(String username, String Password,String email,String postcode,String address,String country){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;
         try {
@@ -37,14 +42,19 @@ public class User {
             return false;
         }
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("insert into userprofiles (login,password) Values(?,?)");
-       
+        PreparedStatement ps = session.prepare("insert into userprofiles (login,password,email,addresses,country) Values(?,?,?,?,?)");
+        //Set emailSetBind = "{'"+email+"'}";
+        Set emailSetBind = new HashSet();
+        emailSetBind.add(email);
+        Map addressMapBind = new HashMap();
+        addressMapBind.put(postcode,address );
+       // String addressMapBind="{'"+postcode+"' : '"+address+"'}";
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        username,EncodedPassword));
+                        username,EncodedPassword,emailSetBind,addressMapBind,country));
         //We are assuming this always works.  Also a transaction would be good here !
-        
+
         return true;
     }
     

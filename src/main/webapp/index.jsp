@@ -39,6 +39,7 @@
                                 %>
                  <li><a href="register.jsp">Register</a></li>
                 <li><a href="login.jsp">Login</a></li>
+                <li><a href="profile.jsp">Profile</a></li>
                 <%
                                         
                             
@@ -47,7 +48,7 @@
         </nav>
         <footer>
             <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
+                <li class="footer"><a href="/">Home</a></li>
                 <li>&COPY; Andy V</li>
                 <li>Welcome faggot named
                         <%=UserName%>
