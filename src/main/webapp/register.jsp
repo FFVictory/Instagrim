@@ -31,14 +31,11 @@
                 td1.innerHTML="Passwords match!";
                 td1.style.color = 'green';
                 $("#submission").show();
-                //$("validate-status").css("color","green");
-                //$("#validate-status").html("valid");
             }
             else {
                 td1.innerHTML="Passwords Don't Match";
                 td1.style.color = 'red';
                 $("#submission").hide();
-                //$("#validate-status").html("invalid");
             }
 
         }
@@ -68,6 +65,8 @@
                     <li>User Name <input type="text" name="username"></li>
                     <li>Password <input type="password" name="password" id="password1"></li>
                     <li>Confirm Password <input type="password" name="confirmPassword" id="password2">   <div id="validate-status"></div></li>
+                    <li>Your Name <input type="text" name="first_name"></li>
+                    <li>Your Surname <input type="text" name="last_name"></li>
                     <li>email <input type="email" name="email"></li>
                     <li>Postcode<input type="text" name="postcode"></li>
                     <li>Address <input type="text" name="address"></li>
@@ -330,7 +329,7 @@
         </article>
         <footer>
             <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
+                <li class="footer"><a href="/">Home</a></li>
             </ul>
         </footer>
     </body>

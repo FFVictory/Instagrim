@@ -1,3 +1,4 @@
+<%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn" %>
 <%--
   Created by IntelliJ IDEA.
   User: Andrew
@@ -13,6 +14,22 @@
     <link rel="stylesheet" type="text/css" href="Styles.css" />
 </head>
 <body>
+    <header>
+        <h1>Profile for
+            <%
+                LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                String UserName;
+                if (lg != null) {
+                    UserName = lg.getUsername();
+                    if(lg.getlogedin()) {
+                        %><%=UserName%><%
+                    }
+                    }else{ UserName="Anonymous";}
+                        %>
+
+        </h1>
+
+    </header>
 
 </body>
 </html>

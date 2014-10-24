@@ -14,3 +14,7 @@ nav {
     border: 2px;
     float: right;
 }
+#validate-status{
+    color: red;
+    font-style: italic;
+}

@@ -49,7 +49,8 @@ public final class Keyspaces {
                     + "      last_name text,\n"
                     + "      email set<text>,\n"
                     + "      addresses  map<text, text>,\n"
-                    + "      country text"
+                    + "      country text,\n"
+                    + "      image blob"
                     + "  );";
             Session session = c.connect();
             try {

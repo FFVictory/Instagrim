@@ -47,13 +47,15 @@ public class Register extends HttpServlet {
             throws ServletException, IOException {
         String username=request.getParameter("username");
         String password=request.getParameter("password");
+        String first_name=request.getParameter("first_name");
+        String last_name=request.getParameter("last_name");
         String email=request.getParameter("email");
         String postcode=request.getParameter("postcode");
         String address=request.getParameter("address");
         String country=request.getParameter("country");
         User us=new User();
         us.setCluster(cluster);
-        us.RegisterUser(username, password,email,postcode,address,country);
+        us.RegisterUser(username, password,first_name,last_name,email,postcode,address,country);
         
 	response.sendRedirect("/");
         
