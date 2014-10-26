@@ -70,6 +70,7 @@
                     <li>email <input type="email" name="email"></li>
                     <li>Postcode<input type="text" name="postcode"></li>
                     <li>Address <input type="text" name="address"></li>
+                    <li>Upload Image<input type="file" name="file"</li>
                     <li>Country<select name="country">
                     <option value="">Select a country</option>
                     <option value="Afganistan">Afghanistan</option>

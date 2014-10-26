@@ -53,6 +53,7 @@ public class Register extends HttpServlet {
         String postcode=request.getParameter("postcode");
         String address=request.getParameter("address");
         String country=request.getParameter("country");
+        System.out.println(request.getParameter("file"));
         User us=new User();
         us.setCluster(cluster);
         us.RegisterUser(username, password,first_name,last_name,email,postcode,address,country);

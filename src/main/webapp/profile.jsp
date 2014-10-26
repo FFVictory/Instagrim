@@ -1,4 +1,10 @@
 <%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn" %>
+<%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.Pic" %>
+<%@ page import="uk.ac.dundee.computing.aec.instagrim.models.PicModel" %>
+<%@ page import="java.io.ByteArrayOutputStream" %>
+<%@ page import="java.io.DataInputStream" %>
+<%@ page import="java.io.DataOutputStream" %>
+<%@ page import="java.io.IOException" %>
 <%--
   Created by IntelliJ IDEA.
   User: Andrew
@@ -28,7 +34,26 @@
                         %>
 
         </h1>
+        <form method="POST" action="upload">
+        <ul>
+            <li>
+                <%
+                    PicModel pm = new PicModel();
+                    java.util.LinkedList<Pic> Pics = pm.getPicsForUser(UserName);
+                    // get the image from the database
+                    byte[] imgData = Pics.getFirst().getBytes();
 
+                    // display the image
+                    response.setContentType("image/gif");
+                    OutputStream o = response.getOutputStream();
+                    o.write(imgData);
+                    o.flush();
+                    o.close();
+                %>
+            </li>
+            <li><a href="upload.jsp">Upload Yo</a></li>
+        </ul>
+        </form>
     </header>
 
 </body>

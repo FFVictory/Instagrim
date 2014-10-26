@@ -74,20 +74,20 @@ public class Image extends HttpServlet {
         String args[] = Convertors.SplitRequestPath(request);
         int command;
         try {
-            command = (Integer) CommandsMap.get(args[1]);
+            command = (Integer) CommandsMap.get(args[0]);
         } catch (Exception et) {
             error("Bad Operator", response);
             return;
         }
         switch (command) {
             case 1:
-                DisplayImage(Convertors.DISPLAY_PROCESSED,args[2], response);
+                DisplayImage(Convertors.DISPLAY_PROCESSED,args[1], response);
                 break;
             case 2:
-                DisplayImageList(args[2], request, response);
+                DisplayImageList(args[1], request, response);
                 break;
             case 3:
-                DisplayImage(Convertors.DISPLAY_THUMB,args[2],  response);
+                DisplayImage(Convertors.DISPLAY_THUMB,args[1],  response);
                 break;
             default:
                 error("Bad Operator", response);
@@ -115,7 +115,7 @@ public class Image extends HttpServlet {
 
         response.setContentType(p.getType());
         response.setContentLength(p.getLength());
-        //out.write(Image);
+       // out.write(Image);
         InputStream is = new ByteArrayInputStream(p.getBytes());
         BufferedInputStream input = new BufferedInputStream(is);
         byte[] buffer = new byte[8192];

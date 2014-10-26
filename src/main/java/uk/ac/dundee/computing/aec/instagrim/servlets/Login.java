@@ -65,11 +65,11 @@ public class Login extends HttpServlet {
             session.setAttribute("LoggedIn", lg);
             System.out.println("Session in servlet "+session);
             RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
-            response.sendRedirect("/profile.jsp");
+            response.sendRedirect("/UsersPics.jsp");
 	    //rd.forward(request,response);
 
         }else{
-            response.sendRedirect("/profile.jsp");
+            response.sendRedirect("/UsersPics.jsp");
         }
         
     }
