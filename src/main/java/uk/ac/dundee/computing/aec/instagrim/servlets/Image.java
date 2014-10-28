@@ -1,13 +1,16 @@
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
-import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.*;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.PreparedStatement;
 import java.util.HashMap;
+import java.util.UUID;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -18,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.xml.transform.Result;
+
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -36,7 +41,9 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
     "/Image/*",
     "/Thumb/*",
     "/Images",
-    "/Images/*"
+    "/Images/*",
+        "/mkprof",
+        "/mkprof/*"
 })
 @MultipartConfig
 
@@ -57,6 +64,7 @@ public class Image extends HttpServlet {
         CommandsMap.put("Image", 1);
         CommandsMap.put("Images", 2);
         CommandsMap.put("Thumb", 3);
+        CommandsMap.put("mkprof",4);
 
     }
 
@@ -72,6 +80,7 @@ public class Image extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         String args[] = Convertors.SplitRequestPath(request);
+        //request.setAttribute("user",args[1]);
         int command;
         try {
             command = (Integer) CommandsMap.get(args[0]);
@@ -89,9 +98,44 @@ public class Image extends HttpServlet {
             case 3:
                 DisplayImage(Convertors.DISPLAY_THUMB,args[1],  response);
                 break;
+            case 4:
+                makeProfile(args[1],args[2],request,response);
+                break;
             default:
                 error("Bad Operator", response);
         }
+    }
+
+    public void makeProfile(String user,String picid ,HttpServletRequest request,HttpServletResponse response) {
+        System.out.println("ProfileProgressaing!!!!");
+        Session session = cluster.connect("instagrim");
+        ResultSet rs = null;
+
+        com.datastax.driver.core.PreparedStatement ps = session.prepare("Select picid from userpiclist where user=?");
+        BoundStatement boundStatement = new BoundStatement(ps);
+        UUID picids = UUID.randomUUID();
+        rs = session.execute(boundStatement.bind(user));
+        if (rs.isExhausted()) {
+            System.out.println("No Profile Pic");
+        } else {
+            for (Row row : rs) {
+
+                picids = row.getUUID("picid");
+                com.datastax.driver.core.PreparedStatement ps1 = session.prepare("UPDATE pics SET title='' WHERE picid=?");
+                BoundStatement boundStatement1 = new BoundStatement(ps1);
+                session.execute(boundStatement1.bind(picids));
+
+            }
+        }
+        com.datastax.driver.core.PreparedStatement ps4 = session.prepare("UPDATE pics SET title='profile' WHERE picid=?");
+        BoundStatement bs = new BoundStatement(ps4);
+        UUID uid = UUID.fromString(picid);
+        session.execute(bs.bind(uid));
+        HttpSession session1=request.getSession();
+        //RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+
+        // try{response.sendRedirect("/");}
+      //  catch(Exception e){}
     }
 
     private void DisplayImageList(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

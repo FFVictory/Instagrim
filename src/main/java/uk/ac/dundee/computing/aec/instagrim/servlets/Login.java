@@ -36,6 +36,11 @@ public class Login extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
 
+    public void huj(HttpServletRequest request,HttpServletResponse response)
+    {
+
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -50,13 +55,15 @@ public class Login extends HttpServlet {
         
         String username=request.getParameter("username");
         String password=request.getParameter("password");
-        
+        System.out.println("username is "+username+" password is "+password+"");
+        if(!(username=="" || password=="")){
         User us=new User();
         us.setCluster(cluster);
         boolean isValid=us.IsValidUser(username, password);
         HttpSession session=request.getSession();
         System.out.println("Session in servlet "+session);
         if (isValid){
+
             LoggedIn lg= new LoggedIn();
             lg.setLogedin();
             lg.setUsername(username);
@@ -65,13 +72,22 @@ public class Login extends HttpServlet {
             session.setAttribute("LoggedIn", lg);
             System.out.println("Session in servlet "+session);
             RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
-            response.sendRedirect("/UsersPics.jsp");
-	    //rd.forward(request,response);
+            //response.sendRedirect("/UsersPics.jsp");
+	        rd.forward(request,response);
 
         }else{
-            response.sendRedirect("/UsersPics.jsp");
+            response.sendRedirect("/login.jsp");
         }
         
+    }
+    else
+        {
+            response.sendRedirect("/login.jsp");
+        }
+    }
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       // doPost(req, resp);
     }
 
     /**

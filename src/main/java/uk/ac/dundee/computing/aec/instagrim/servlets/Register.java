@@ -23,11 +23,11 @@ import uk.ac.dundee.computing.aec.instagrim.models.User;
  *
  * @author Administrator
  */
-@WebServlet(name = "Register", urlPatterns = {"/Register"})
+@WebServlet(name = "Register", urlPatterns = {"/Register*"})
 public class Register extends HttpServlet {
     Cluster cluster=null;
     public void init(ServletConfig config) throws ServletException {
-        // TODO Auto-generated method stub
+        // TODO Auto-generated method stub`
         cluster = CassandraHosts.getCluster();
     }
 
@@ -53,11 +53,13 @@ public class Register extends HttpServlet {
         String postcode=request.getParameter("postcode");
         String address=request.getParameter("address");
         String country=request.getParameter("country");
-        System.out.println(request.getParameter("file"));
-        User us=new User();
-        us.setCluster(cluster);
-        us.RegisterUser(username, password,first_name,last_name,email,postcode,address,country);
-        
+        if(!(country=="" || address=="" || postcode=="" || email=="" || last_name=="" || first_name=="" || password=="" || username=="")) {
+
+
+            User us = new User();
+            us.setCluster(cluster);
+            us.RegisterUser(username, password, first_name, last_name, email, postcode, address, country);
+        }
 	response.sendRedirect("/");
         
     }

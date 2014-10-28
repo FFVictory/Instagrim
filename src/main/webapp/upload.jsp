@@ -1,4 +1,5 @@
-<%-- 
+<%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn" %>
+<%--
     Document   : upload
     Created on : Sep 22, 2014, 6:31:50 PM
     Author     : Administrator
@@ -14,11 +15,23 @@
     </head>
     <body>
         <h1>InstaGramulja ! </h1>
-        <h2>Your world in Black and White</h2>
+        <h2>Your world in Black and Whiters</h2>
         <nav>
             <ul>
+                <%
+                    LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                    String UserName="";
+                    if (lg != null) {
+                        UserName = lg.getUsername();
+                        if (lg.getlogedin()) {
+
+                        } else {
+                            response.sendRedirect("/");
+
+                        }
+                    }
+                %>
                 <li class="nav"><a href="upload.jsp">Upload</a></li>
-                <li class="nav"><a href="/Images/majed">Sample Images</a></li>
             </ul>
         </nav>
  

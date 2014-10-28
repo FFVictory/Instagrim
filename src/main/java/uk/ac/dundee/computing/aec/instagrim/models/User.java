@@ -57,7 +57,29 @@ public class User {
 
         return true;
     }
-    
+    public void updateUserInfo(String userName,String firstName,String lastName,String country,String email){
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("UPDATE userprofiles SET first_name=? WHERE login=?");
+        BoundStatement bs = new BoundStatement(ps);
+        ResultSet rs = null;
+        rs = session.execute(
+                bs.bind(firstName,userName));
+        ps = session.prepare("UPDATE userprofiles SET last_name=? WHERE login=?");
+        bs = new BoundStatement(ps);
+        rs = session.execute(
+                bs.bind(lastName,userName));
+        ps = session.prepare("UPDATE userprofiles SET country=? WHERE login=?");
+        bs = new BoundStatement(ps);
+        rs = session.execute(
+                bs.bind(country,userName));
+        Set emailSetBind = new HashSet();
+        emailSetBind.add(email);
+        ps = session.prepare("        UPDATE userprofiles SET email = ? WHERE login=?;");
+        bs = new BoundStatement(ps);
+        rs = session.execute(
+                bs.bind(emailSetBind,userName));
+
+    }
     public boolean IsValidUser(String username, String Password){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;

@@ -16,33 +16,26 @@
     </head>
     <body>
         <header>
-            <h1>InstaGrim ! </h1>
+            <h1>InstaGrimus ! </h1>
             <h2>Your world in Black and White</h2>
         </header>
         <nav>
             <ul>
-
-               
-                <li><a href="upload.jsp">Upload</a></li>
                     <%
-                        
                         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                         String UserName;
                         if (lg != null) {
                             UserName = lg.getUsername();
                             if (lg.getlogedin()) {
                     %>
-
                 <li><a href="/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="upload.jsp">Upload</a></li>
+                <li><a href="/Profile/<%=lg.getUsername()%>">Profile</a></li>
                     <%}
-                            }else{ UserName = "Anonymous";
-                                %>
-                 <li><a href="register.jsp">Register</a></li>
+                            }else {%>
+                <li><a href="register.jsp">Register</a></li>
                 <li><a href="login.jsp">Login</a></li>
-                <li><a href="profile.jsp">Profile</a></li>
-                <%
-                                        
-                            
+                        <%UserName = "Anonymous";
                     }%>
             </ul>
         </nav>
@@ -50,17 +43,16 @@
             <ul>
                 <li class="footer"><a href="/">Home</a></li>
                 <li>&COPY; Andy V</li>
-                <li>Welcome faggot named
-                        <%=UserName%>
-                </li>
-                <li>
-                    <a href="/" >Logout
-                    <%
-                        //HttpSession session=request.getSession();
-                        session.removeAttribute("LoggedIn");
-                    %>
+                <li>Welcome <%=UserName%> </li>
+                        <form action="/Logout" method="post" >
+
+                                <li>
+                                   <input type="submit" name="Logout" value="Logout">
+                                </li>
+
+                        </form>
+
                     </a>
-                </li>
             </ul>
         </footer>
     </body>

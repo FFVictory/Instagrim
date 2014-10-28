@@ -30,6 +30,8 @@ public final class Keyspaces {
                     + " name  varchar,"
                     + " PRIMARY KEY (picid)"
                     + ")";
+            String CreateIndex = "CREATE INDEX ON instagrim.pics(title);";
+            String CreateIndex1 = "CREATE INDEX ON instagrim.pics(user);";
             String Createuserpiclist = "CREATE TABLE if not exists instagrim.userpiclist (\n"
                     + "picid uuid,\n"
                     + "user varchar,\n"
@@ -51,7 +53,8 @@ public final class Keyspaces {
                     + "      addresses  map<text, text>,\n"
                     + "      country text,\n"
                     + "      image blob"
-                    + "  );";
+                    + "  );" ;
+
             Session session = c.connect();
             try {
                 PreparedStatement statement = session
@@ -75,6 +78,22 @@ public final class Keyspaces {
                 System.out.println("Can't create tweet table " + et);
             }
             System.out.println("" + Createuserpiclist);
+
+            try{
+                SimpleStatement cqlQuery= new SimpleStatement(CreateIndex);
+                session.execute(cqlQuery);
+            }
+            catch(Exception et){
+                System.out.println("Can't index pics"+et);
+            }
+
+            try{
+                SimpleStatement cqlQuery= new SimpleStatement(CreateIndex1);
+                session.execute(cqlQuery);
+            }
+            catch(Exception et){
+                System.out.println("Can't index pics"+et);
+            }
 
             try {
                 SimpleStatement cqlQuery = new SimpleStatement(Createuserpiclist);

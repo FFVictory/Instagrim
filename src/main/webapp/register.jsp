@@ -54,13 +54,12 @@
         </header>
         <nav>
             <ul>
-                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
             </ul>
         </nav>
        
         <article>
             <h3>Register as user</h3>
-            <form method="POST"  action="Register">
+            <form method="POST" action="Register">
                 <ul>
                     <li>User Name <input type="text" name="username"></li>
                     <li>Password <input type="password" name="password" id="password1"></li>
@@ -70,7 +69,6 @@
                     <li>email <input type="email" name="email"></li>
                     <li>Postcode<input type="text" name="postcode"></li>
                     <li>Address <input type="text" name="address"></li>
-                    <li>Upload Image<input type="file" name="file"</li>
                     <li>Country<select name="country">
                     <option value="">Select a country</option>
                     <option value="Afganistan">Afghanistan</option>
