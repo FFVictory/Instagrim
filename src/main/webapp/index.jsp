@@ -31,6 +31,13 @@
                 <li><a href="/Images/<%=lg.getUsername()%>">Your Images</a></li>
                 <li><a href="upload.jsp">Upload</a></li>
                 <li><a href="/Profile/<%=lg.getUsername()%>">Profile</a></li>
+                        <form action="/Logout" method="post" >
+
+                                <li>
+                                   <input type="submit" name="Logout" value="Logout">
+                                </li>
+
+                        </form>
                     <%}
                             }else {%>
                 <li><a href="register.jsp">Register</a></li>
@@ -44,13 +51,6 @@
                 <li class="footer"><a href="/">Home</a></li>
                 <li>&COPY; Andy V</li>
                 <li>Welcome <%=UserName%> </li>
-                        <form action="/Logout" method="post" >
-
-                                <li>
-                                   <input type="submit" name="Logout" value="Logout">
-                                </li>
-
-                        </form>
 
                     </a>
             </ul>

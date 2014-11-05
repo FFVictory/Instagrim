@@ -133,9 +133,9 @@ public class Image extends HttpServlet {
         session.execute(bs.bind(uid));
         HttpSession session1=request.getSession();
         //RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-
-        // try{response.sendRedirect("/");}
-      //  catch(Exception e){}
+        //response.sendRedirect("/index.jsp");
+        try{response.sendRedirect("/");}
+        catch(Exception e){}
     }
 
     private void DisplayImageList(String User, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
